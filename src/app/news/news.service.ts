@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Card } from "./card.model";
+import { pluck} from "rxjs/operators"
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +13,10 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-  getNews(){
-    let searchingParams = new HttpParams();
-    //searchingParams = searchingParams.append('page', '1');
-    searchingParams = searchingParams.append('language', 'en');
-    searchingParams = searchingParams.append('pageSize', '6');
-    searchingParams = searchingParams.append('apiKey',this.apiKey );
+  getNews():Observable<Card[]>{
 
-
-
-    return this.http.get("https://newsapi.org/v2/top-headlines?", {
-      params: searchingParams
-    })
+    return this.http.get<Card[]>("http://newsapi.org/v2/top-headlines?q=a&apiKey=09b2a48dc89f416caada3626ec05f9eb&page=3&pageSize=6")
+    .pipe(pluck("articles"))
 
   }
 

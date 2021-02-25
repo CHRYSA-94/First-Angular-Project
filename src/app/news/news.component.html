@@ -1,7 +1,7 @@
 <div class="container">
  <app-card
- *ngFor="let card of (news)"
-[eachCard]="card"></app-card>
+ *ngFor="let card of news$|async"
+[inputCard]="card"></app-card>
 </div>
 
 

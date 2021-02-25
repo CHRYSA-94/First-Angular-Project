@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
 import { Card } from './card.model';
 import { NewsService } from './news.service';
 
@@ -9,17 +10,13 @@ import { NewsService } from './news.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
- news :Card[] ;
+ news$ :Observable<Card[]> = EMPTY;
+
 
   constructor(private newsService: NewsService) { }
 
   ngOnInit(): void {
-    this.newsService.getNews()
-    .subscribe(data => {
-      this.news = data["articles"]
-    });
+   this.news$ = this.newsService.getNews()
   }
-
-
 
 }

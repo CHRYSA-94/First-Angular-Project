@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NewsService } from '../news.service';
+import { Card } from '../card.model';
+
 
 @Component({
   selector: 'app-card',
@@ -7,7 +8,7 @@ import { NewsService } from '../news.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Input() eachCard: {title: string, description: string, category: string, urlToImage:string}
+  @Input() inputCard: Card[];
 
   constructor() { }
 
