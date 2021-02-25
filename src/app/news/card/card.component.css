@@ -1,0 +1,42 @@
+*{
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(87, 87, 87);
+  font-size: 15px;
+  line-height: 1.5em;
+}
+
+h2{
+  font-size: 20px;
+  color: rgb(48, 48, 48);
+}
+
+.card{
+  margin: 10px;
+  border-radius: 5px;
+  width: 350px;
+  text-align: left;
+  font-size: 15px;
+  background-color: white;
+}
+.thumbnail-image img {
+  max-width: 350px;
+  background-position:center center;
+  height:250px;
+  border-radius: 5px 5px 0 0;
+
+}
+.thumbnail-image{
+  margin: 0;
+  border-radius: 5px 5px 0 0;
+  height: 250px;
+}
+ .thumbnail-content{
+   margin: 0;
+   padding: 0 20px;
+   height: 280px;
+   border-radius: 0 0 5px 5px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+ }

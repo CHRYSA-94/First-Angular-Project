@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
+import { Card } from './card.model';
+import { NewsService } from './news.service';
+
 
 @Component({
   selector: 'app-news',
@@ -6,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
+ news$ :Observable<Card[]> = EMPTY;
 
-  constructor() { }
+
+  constructor(private newsService: NewsService) { }
 
   ngOnInit(): void {
+   this.news$ = this.newsService.getNews()
   }
 
 }
