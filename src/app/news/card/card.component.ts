@@ -8,7 +8,7 @@ import { Card } from '../card.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Input() inputCard: Card[];
+  @Input() inputCard: Card;
 
   constructor() { }
 
