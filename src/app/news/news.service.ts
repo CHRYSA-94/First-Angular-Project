@@ -1,26 +1,29 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Card } from "./card.model";
-import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
- apiKey = "09b2a48dc89f416caada3626ec05f9eb";
- news:Card[] ;
+ private apiKey = "09b2a48dc89f416caada3626ec05f9eb";
+
 
   constructor(private http: HttpClient) {}
 
   getNews(){
-    let searchingParms = new HttpParams();
-    searchingParms = searchingParms.append('language', 'en');
-    searchingParms = searchingParms.append('apiKey',this.apiKey );
+    let searchingParams = new HttpParams();
+    //searchingParams = searchingParams.append('page', '1');
+    searchingParams = searchingParams.append('language', 'en');
+    searchingParams = searchingParams.append('pageSize', '6');
+    searchingParams = searchingParams.append('apiKey',this.apiKey );
 
-    return this.http.get("https://newsapi.org/v2/sources?", {
-      params: searchingParms
+
+
+    return this.http.get("https://newsapi.org/v2/top-headlines?", {
+      params: searchingParams
     })
-  }
 
+  }
 
 }

@@ -1,14 +1,13 @@
 export class Card {
-  public name: string;
+  public title: string;
   public description: string;
-  public id: string;
   public category: string;
+  public image:string
 
-  constructor(title: string, content: string, id: string, category: string) {
-    this.name = title;
+  constructor(title: string, content: string, category: string, urlToImage:string) {
+    this.title = title;
     this.description = content;
-    this.id = id;
     this.category = category;
-
+    this.image = urlToImage;
   }
 }

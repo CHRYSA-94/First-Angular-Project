@@ -1,16 +1,8 @@
 <div class="container">
-  <div class="card" *ngFor="let card of news">
-    <div class="thumbnailImage">
-      <img [src]="imagesCover" alt="a dummy image" >
-    </div>
-    <div class="thumbnailContent">
-      <div>
-        <h2>{{card.name}}</h2>
-        <p>{{card.description}}</p>
-      </div>
-      <div>
-        <p id="category"><i class='fas fa-tag'></i>  {{card.category}}</p>
-      </div>
-    </div>
-  </div>
+ <app-card
+ *ngFor="let card of (news)"
+[eachCard]="card"></app-card>
 </div>
+
+
+

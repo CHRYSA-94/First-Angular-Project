@@ -1,63 +1,7 @@
-*{
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  color: rgb(87, 87, 87);
-  font-size: 15px;
-  line-height: 1.5em;
-}
-
-h2{
-  font-size: 25px;
-  color: rgb(48, 48, 48);
-}
-
-i{
-  color:grey;
-  transform: rotate(90deg);
-}
-
-#category{
-  text-transform: capitalize;
-  letter-spacing: 1px;
-  font-weight:bolder;
-  font-size: 15px;
-  color: rgb(48, 48, 48);
-}
-
 .container{
-  margin: 30px 150px;
   display: flex;
   flex-wrap: wrap;
+  margin: 30px 150px;
   justify-content: center;
-}
-.card{
-  margin: 10px;
-  border-radius: 5px;
-  width: 350px;
-  text-align: left;
-  font-size: 15px;
-  background-color: white;
-}
-.thumbnailImage img {
-  max-width: 350px;
-  background-position:center center;
-  height:250px;
-  border-radius: 5px 5px 0 0;
+  }
 
-}
-.thumbnailImage{
-  margin: 0;
-  background-color: rgb(194, 194, 194);
-  border-radius: 5px 5px 0 0;
-  height: 250px;
-}
- .thumbnailContent{
-   margin: 0;
-   padding: 0 20px;
-   height: 280px;
-   background-color: white;
-   border-radius: 0 0 5px 5px;
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
- }
