@@ -1,6 +1,6 @@
 <div class="container">
  <app-card
- *ngFor="let card of news$|async"
+ *ngFor="let card of news;let i = index"
 [inputCard]="card"></app-card>
 </div>
 

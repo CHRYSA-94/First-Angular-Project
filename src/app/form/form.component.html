@@ -1,0 +1,36 @@
+<div class="page-container">
+  <form [formGroup]="form">
+    <div class="searching-container"
+    formGroupName="searchingData">
+      <mat-form-field appearance="fill">
+        <mat-label>
+          <mat-icon>search</mat-icon>
+          Search Channels</mat-label>
+        <input matInput
+        formControlName="typingWord">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose category</mat-label>
+        <mat-select
+         formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category.value">
+            {{category.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="pagination-container">
+      <div id="pagination">
+        <mat-paginator
+        formControlName="pagination"
+        [length]= "totalNews$ |async"
+        [pageSize]="6"
+        [pageSizeOptions]="[6]"
+        (page)="onPageChange($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </form>
+</div>
+

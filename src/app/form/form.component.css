@@ -1,0 +1,26 @@
+/* :host {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+} */
+.page-container{
+  margin: 30px 200px;
+}
+
+.searching-container{
+  display: flex;
+  flex-direction:row;
+  justify-content: flex-end;
+  margin: 0px 15px;
+}
+
+.pagination-container{
+  margin: 0px 15px;
+}
+
+#pagination{
+  text-align: left;
+  max-width: 400px;
+}
+
+
