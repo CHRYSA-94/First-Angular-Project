@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Card } from "./card.model";
-// import { pluck} from "rxjs/operators"
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators'
 
@@ -18,7 +17,6 @@ export class NewsService {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('q', searchingText);
     searchParams = searchParams.append('apiKey', 'fcd08d5931f14dc59a429114ea0170cd');
-    //searchParams = searchParams.append('apiKey', '09b2a48dc89f416caada3626ec05f9eb');
     searchParams = searchParams.append('page', page);
     searchParams = searchParams.append('pageSize', '6');
     searchParams = searchParams.append('category', category);
@@ -29,19 +27,10 @@ export class NewsService {
     .pipe(map( responseData => {
       let newsArray = [];
       newsArray = responseData["articles"];
-      console.log(newsArray);
       this.totalResults = responseData["totalResults"];
-      console.log(this.totalResults)
       return newsArray
     }
     ))
   }
-
-
-// reference to previous solution
-  // getNewsFromSearchTitle(title: string){
-  //   return this.http.get<Card[]>("http://newsapi.org/v2/top-headlines?q=a&apiKey=09b2a48dc89f416caada3626ec05f9eb&page=3&pageSize=6")
-  //   .pipe(pluck("articles") )
-  // }
 
 }

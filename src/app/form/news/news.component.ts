@@ -3,6 +3,7 @@ import { SearchAndPaginationService } from '../searchAndPagination.service';
 //import { EMPTY, Observable } from 'rxjs';
 import { Card } from './card.model';
 import { NewsService } from './news.service';
+import {  combineLatest} from 'rxjs';
 
 
 @Component({
@@ -11,49 +12,26 @@ import { NewsService } from './news.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  inputVal: string = "a";
-  selectedCategory:string = "business";
-  page:string = "1";
 
- //news$ :Observable<Card[]> = EMPTY;
   news: Card[] ;
 
   constructor(private newsService: NewsService, private searchAndPagination: SearchAndPaginationService) { }
 
   ngOnInit(): void {
 
-    this.newsService.getNews( this.inputVal, this.selectedCategory , this.page).subscribe(
-      newsData =>
-        this.news = newsData
-    )
+    combineLatest([
+      this.searchAndPagination.userInput,
+      this.searchAndPagination.userSelectChoice,
+      this.searchAndPagination.changePage])
+      .subscribe(([input, selectOption, pageIndex]) =>{
 
-    this.searchAndPagination.userInput.subscribe( input =>{
-      this.newsService.getNews(input , this.selectedCategory , this.page ).subscribe(
-        newsData => {
-          this.news = newsData;
-         console.log(newsData)}
-      );
-    }
-    )
 
-    this.searchAndPagination.userSelectChoice.subscribe( category =>{
-      this.newsService.getNews(this.inputVal , category , this.page ).subscribe(
-        newsData => {
-          this.news = newsData;
-         console.log(newsData)}
-      );
-    }
-    )
-
-    this.searchAndPagination.changePage.subscribe( pageIndex =>{
-      this.newsService.getNews(this.inputVal , this.selectedCategory , pageIndex ).subscribe(
-        newsData => {
-          this.news = newsData;
-         console.log(newsData)}
-      );
-    }
-    )
-
+        this.newsService.getNews(input, selectOption , pageIndex).subscribe(
+          newsData =>
+          this.news = newsData
+        )
+      }
+      )
   }
 
 }
