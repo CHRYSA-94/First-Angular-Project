@@ -14,9 +14,18 @@ export class NewsService {
   constructor(private http: HttpClient) {}
 
 
-  getNews( searchingText: string,category: string,page: string):Observable<Card[]>{
-
-    return this.http.get("http://newsapi.org/v2/top-headlines?q="+ searchingText +"&category="+ category +"&apiKey=09b2a48dc89f416caada3626ec05f9eb&page=" + page +"&pageSize=6")
+  getNews( searchingText: string ,category: string ,page: string ):Observable<Card[]>{
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('q', searchingText);
+    searchParams = searchParams.append('apiKey', 'fcd08d5931f14dc59a429114ea0170cd');
+    //searchParams = searchParams.append('apiKey', '09b2a48dc89f416caada3626ec05f9eb');
+    searchParams = searchParams.append('page', page);
+    searchParams = searchParams.append('pageSize', '6');
+    searchParams = searchParams.append('category', category);
+    return this.http.get("http://newsapi.org/v2/top-headlines",{
+      params: searchParams
+    }
+    )
     .pipe(map( responseData => {
       let newsArray = [];
       newsArray = responseData["articles"];

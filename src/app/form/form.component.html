@@ -24,7 +24,7 @@
       <div id="pagination">
         <mat-paginator
         formControlName="pagination"
-        [length]= "totalNews$ |async"
+        [length]= "100"
         [pageSize]="6"
         [pageSizeOptions]="[6]"
         (page)="onPageChange($event)">

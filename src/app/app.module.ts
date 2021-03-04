@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {RouterModule, Routes} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon'
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchAndPaginationService } from './form/searchAndPagination.service';
 
 const appRoutes: Routes = [
   { path: '',component: NewsComponent}
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatIconModule
   ],
-  providers: [NewsService],
+  providers: [NewsService, SearchAndPaginationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

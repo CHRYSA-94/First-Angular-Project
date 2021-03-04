@@ -11,9 +11,9 @@ import { NewsService } from './news.service';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  inputVal: string;
-  selectedCategory:string;
-  page:string;
+  inputVal: string = "a";
+  selectedCategory:string = "business";
+  page:string = "1";
 
  //news$ :Observable<Card[]> = EMPTY;
   news: Card[] ;
@@ -21,22 +21,33 @@ export class NewsComponent implements OnInit {
   constructor(private newsService: NewsService, private searchAndPagination: SearchAndPaginationService) { }
 
   ngOnInit(): void {
-    this.searchAndPagination.userInput.subscribe( input =>
-      this.inputVal =  input
+
+    this.searchAndPagination.userInput.subscribe( input =>{
+      this.newsService.getNews(input , this.selectedCategory , this.page ).subscribe(
+        newsData => {
+          this.news = newsData;
+         console.log(newsData)}
+      );
+    }
     )
 
-    this.searchAndPagination.userSelectChoice.subscribe( category =>
-      this.selectedCategory =  category
+    this.searchAndPagination.userSelectChoice.subscribe( category =>{
+      this.newsService.getNews(this.inputVal , category , this.page ).subscribe(
+        newsData => {
+          this.news = newsData;
+         console.log(newsData)}
+      );
+    }
     )
 
-    this.searchAndPagination.changePage.subscribe( num =>
-       this.page = num.toString())
-
-   this.newsService.getNews(this.inputVal, this.selectedCategory, this.page).subscribe(
-     newsData => {
-       this.news = newsData;
-      console.log(newsData)}
-   )
+    this.searchAndPagination.changePage.subscribe( pageIndex =>{
+      this.newsService.getNews(this.inputVal , this.selectedCategory , pageIndex ).subscribe(
+        newsData => {
+          this.news = newsData;
+         console.log(newsData)}
+      );
+    }
+    )
 
   }
 

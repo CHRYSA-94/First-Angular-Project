@@ -14,7 +14,7 @@ import { EMPTY, Observable } from 'rxjs';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit{
-  totalNews$ :Observable<number> = EMPTY;
+  // totalNews$ :Observable<number>
 
   form: FormGroup;
 
@@ -47,7 +47,7 @@ export class FormComponent implements OnInit{
     )
     .subscribe( val =>{
       console.log(val);
-      this.searchAndPaginationService.userInput.next(val)
+      this.searchAndPaginationService.userInput.next(val);
     })
 
     this.form.get('searchingData.category').valueChanges
@@ -56,24 +56,20 @@ export class FormComponent implements OnInit{
     )
     .subscribe( val => {
       console.log(val);
+      this.searchAndPaginationService.userSelectChoice.next(val);
 
-      this.searchAndPaginationService.userSelectChoice.next(val)
     })
-
-   this.totalNews$ = this.newsService.totalResults
-
   }
-
 
   onPageChange(event: PageEvent){
     console.log(event)
     console.log(event.pageIndex)
     const startNumber = event.pageIndex * event.pageSize;
     let endNumber = startNumber + event.pageSize;
-    if(endNumber > this.totalNews$) {
-      endNumber = this.totalNews$;
-    }
-    this.searchAndPaginationService.changePage.next(event.pageIndex)
+    // if(endNumber > this.totalNews$) {
+    //   endNumber = this.totalNews$;
+    // }
+    let index = event.pageIndex.toString()
+    this.searchAndPaginationService.changePage.next(index);
   }
-
 }
