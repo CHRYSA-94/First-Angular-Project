@@ -22,6 +22,11 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.newsService.getNews( this.inputVal, this.selectedCategory , this.page).subscribe(
+      newsData =>
+        this.news = newsData
+    )
+
     this.searchAndPagination.userInput.subscribe( input =>{
       this.newsService.getNews(input , this.selectedCategory , this.page ).subscribe(
         newsData => {
