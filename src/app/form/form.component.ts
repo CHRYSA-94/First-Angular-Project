@@ -5,6 +5,8 @@ import { FormControl, FormGroup} from '@angular/forms'
 import { debounceTime } from 'rxjs/operators';
 import { map } from 'rxjs/operators'
 import { SearchAndPaginationService } from './searchAndPagination.service';
+import { Categories } from './categories';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -15,27 +17,45 @@ import { SearchAndPaginationService } from './searchAndPagination.service';
 export class FormComponent implements OnInit{
   totalNews: number;
   form: FormGroup;
+  categories = Categories;
+  keys= [];
 
-  categories: { value: string;}[] =
-    [
-      {value: 'Business'},
-      {value: 'Entertainment'},
-      {value: 'General'},
-      {value: 'Health'},
-      {value: 'Science'},
-      {value: 'Sports'},
-      {value: 'Technology'}
-    ];
+  querySearchCharacters :string;
+  queryCategory :string;
+  queryPageIndex :string;
 
-  constructor(public newsService:NewsService, public searchAndPaginationService:SearchAndPaginationService) { }
+  constructor(public newsService: NewsService,
+     public searchAndPaginationService: SearchAndPaginationService,
+     private route: ActivatedRoute ,
+     private router: Router) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe( data => {
+
+      this.querySearchCharacters = data.q;
+      this.queryCategory = data.category;
+      this.queryPageIndex = data.page;
+
+      if (this.querySearchCharacters !== undefined){
+        this.searchAndPaginationService.userInput.next(this.querySearchCharacters);
+      }
+      if (this.queryCategory !== undefined){
+        this.searchAndPaginationService.userSelectChoice.next(this.queryCategory);
+      }
+      if (this.queryPageIndex !== undefined){
+        this.searchAndPaginationService.changePage.next(this.queryPageIndex);
+      }
+
+    })
+
+    this.keys = Object.keys(this.categories).filter(k => isNaN(Number(k)));
+
     this.form = new FormGroup({
       'searchingData': new FormGroup({
         'typingWord': new FormControl('a'),
         'category': new FormControl('Business')
-      }),
-      'pagination': new FormControl('1')
+      })
     })
 
     this.form.get('searchingData.typingWord').valueChanges
@@ -43,6 +63,7 @@ export class FormComponent implements OnInit{
       debounceTime(300)
     )
     .subscribe( val =>{
+      this.router.navigate([''], {queryParams: {q: val}});
       this.searchAndPaginationService.userInput.next(val);
     })
 
@@ -51,8 +72,8 @@ export class FormComponent implements OnInit{
       map(val=>val.toLowerCase())
     )
     .subscribe( val => {
+      this.router.navigate([''], {queryParams: {category: val}});
       this.searchAndPaginationService.userSelectChoice.next(val);
-
     })
     this.totalNews = this.newsService.totalResults;
   }
@@ -60,6 +81,7 @@ export class FormComponent implements OnInit{
   onPageChange(event: PageEvent){
     let index = event.pageIndex.toString()
     this.searchAndPaginationService.changePage.next(index);
+    this.router.navigate([''], {queryParams: {page: index}});
   }
 
 

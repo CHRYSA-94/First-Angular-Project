@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchAndPaginationService } from '../searchAndPagination.service';
-//import { EMPTY, Observable } from 'rxjs';
 import { Card } from './card.model';
 import { NewsService } from './news.service';
 import {  combineLatest} from 'rxjs';
@@ -24,7 +23,6 @@ export class NewsComponent implements OnInit {
       this.searchAndPagination.userSelectChoice,
       this.searchAndPagination.changePage])
       .subscribe(([input, selectOption, pageIndex]) =>{
-
 
         this.newsService.getNews(input, selectOption , pageIndex).subscribe(
           newsData =>
