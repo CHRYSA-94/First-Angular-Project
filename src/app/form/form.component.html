@@ -2,8 +2,8 @@
   <form [formGroup]="form">
     <div class="searching-container"
     formGroupName="searchingData">
-      <mat-form-field appearance="fill">
-        <mat-label>
+      <mat-form-field mat-raised-button appearance="outline">
+        <mat-label floatLabel="auto">
           <mat-icon>search</mat-icon>
           Search Channels</mat-label>
         <input matInput
@@ -19,6 +19,7 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <mat-divider class="searching-container" style="margin-bottom: 20px;"></mat-divider>
     <app-news></app-news>
     <div class="pagination-container">
       <div id="pagination">
@@ -31,5 +32,6 @@
       </div>
     </div>
   </form>
+  <mat-divider class="searching-container" style="margin-top: 50px;"></mat-divider>
 </div>
 

@@ -16,6 +16,12 @@ import { RouterModule, Routes} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchAndPaginationService } from './form/searchAndPagination.service';
+import { HeaderComponent } from './header/header.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import { FooterComponent } from './footer/footer.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 const appRoutes: Routes = [
   { path: '',component: FormComponent}
@@ -27,7 +33,9 @@ const appRoutes: Routes = [
     AppComponent,
     NewsComponent,
     CardComponent,
-    FormComponent
+    FormComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,11 @@ const appRoutes: Routes = [
     MatInputModule,
     MatPaginatorModule,
     RouterModule.forRoot(appRoutes),
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatDividerModule
   ],
   providers: [NewsService, SearchAndPaginationService],
   bootstrap: [AppComponent]

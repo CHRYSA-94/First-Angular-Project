@@ -1,7 +1,17 @@
 <div class="card" >
   <div class="thumbnail-image">
-    <img [src]="inputCard.urlToImage" alt="broken image" >
+      <img [src]="inputCard.urlToImage" alt="broken image" >
   </div>
+  <!-- i think that the file path is correct...i can't understand why it doesn't play -->
+
+  <!-- <div class="thumbnail-image">
+    <div  *ngIf="inputCard.urlToImage else altImage">
+      <img [src]="inputCard.urlToImage" alt="broken image" >
+    </div>
+    <ng-template #altImage>
+      <img [src]="../../../../assets/images/news-placeholder.jpg" alt="broken image" >
+    </ng-template>
+  </div> -->
   <div class="thumbnail-content">
     <div>
       <h2>{{inputCard.title}}</h2>

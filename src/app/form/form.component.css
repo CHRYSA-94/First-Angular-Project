@@ -1,22 +1,30 @@
 
 .page-container{
-  margin: 30px 200px;
+  margin: 30px 100px 0px ;
+  font-size: 20px;
 }
 
 .searching-container{
   display: flex;
   flex-direction:row;
   justify-content: flex-end;
-  margin: 0px 15px;
+  margin: 0px 70px;
 }
 
 .pagination-container{
-  margin: 0px 15px;
+  margin: 0px 70px;
 }
 
 #pagination{
-  text-align: left;
-  max-width: 400px;
+  max-width: 360px;
 }
-
+mat-paginator{
+  background-color: rgb(245, 245, 245);
+  font-size: 14px;
+  text-align: left;
+}
+mat-form-field{
+  margin-left: 20px;
+  width: 250px;
+}
 

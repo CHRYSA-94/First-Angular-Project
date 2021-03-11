@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { NewsService } from './news/news.service';
 import { FormControl, FormGroup} from '@angular/forms'
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators'
 import { SearchAndPaginationService } from './searchAndPagination.service';
 import { Categories } from './categories';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,12 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit, OnDestroy{
+
+  private  routeObservable: Subscription;
   totalNews: number;
   form: FormGroup;
   categories = Categories;
   keys= [];
-
   querySearchCharacters :string;
   queryCategory :string;
   queryPageIndex :string;
@@ -79,10 +81,14 @@ export class FormComponent implements OnInit{
   }
 
   onPageChange(event: PageEvent){
-    let index = event.pageIndex.toString()
+
+    let index = (event.pageIndex + 1).toString()
     this.searchAndPaginationService.changePage.next(index);
     this.router.navigate([''], {queryParams: {page: index}});
   }
 
+  ngOnDestroy(): void{
+    this.routeObservable.unsubscribe();
+  }
 
 }

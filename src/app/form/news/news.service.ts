@@ -12,11 +12,10 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-
   getNews( searchingText: string ,category: string ,page: string ):Observable<Card[]>{
     let searchParams = new HttpParams();
     searchParams = searchParams.append('q', searchingText);
-    searchParams = searchParams.append('apiKey', 'fcd08d5931f14dc59a429114ea0170cd');
+    searchParams = searchParams.append('apiKey',"fcd08d5931f14dc59a429114ea0170cd" );
     searchParams = searchParams.append('page', page);
     searchParams = searchParams.append('pageSize', '6');
     searchParams = searchParams.append('category', category);
