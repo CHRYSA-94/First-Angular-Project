@@ -1,0 +1,37 @@
+<div class="page-container">
+  <form [formGroup]="form">
+    <div class="searching-container"
+    formGroupName="searchingData">
+      <mat-form-field mat-raised-button appearance="outline">
+        <mat-label floatLabel="auto">
+          <mat-icon>search</mat-icon>
+          Search Channels</mat-label>
+        <input matInput
+        formControlName="typingWord">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose category</mat-label>
+        <mat-select
+         formControlName="category">
+          <mat-option *ngFor= "let category of keys " [value]="category">
+            {{category}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-divider class="searching-container" style="margin-bottom: 20px;"></mat-divider>
+    <app-news></app-news>
+    <div class="pagination-container">
+      <div id="pagination">
+        <mat-paginator
+        [length]= "newsService.totalResults"
+        [pageSize]="6"
+        [pageSizeOptions]="[6]"
+        (page)="onPageChange($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </form>
+  <mat-divider class="searching-container" style="margin-top: 50px;"></mat-divider>
+</div>
+
