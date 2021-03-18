@@ -22,9 +22,9 @@ export class FormComponent implements OnInit, OnDestroy{
   form: FormGroup;
   categories = Categories;
   keys= [];
-  querySearchCharacters :string;
-  queryCategory :string;
-  queryPageIndex :string;
+  querySearchCharacters = "a";
+  queryCategory = "business";
+  queryPageIndex = "1";
 
   constructor(public newsService: NewsService,
      public searchAndPaginationService: SearchAndPaginationService,
@@ -33,21 +33,19 @@ export class FormComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
+    this.router.navigate([''], {queryParams: {q: this.querySearchCharacters,category: this.queryCategory,page: this.queryPageIndex }});
+
     this.route.queryParams.subscribe( data => {
+      console.log(data)
 
       this.querySearchCharacters = data.q;
       this.queryCategory = data.category;
       this.queryPageIndex = data.page;
 
-      if (this.querySearchCharacters !== undefined){
-        this.searchAndPaginationService.userInput.next(this.querySearchCharacters);
-      }
-      if (this.queryCategory !== undefined){
-        this.searchAndPaginationService.userSelectChoice.next(this.queryCategory);
-      }
-      if (this.queryPageIndex !== undefined){
-        this.searchAndPaginationService.changePage.next(this.queryPageIndex);
-      }
+      this.searchAndPaginationService.userInput.next(this.querySearchCharacters);
+      this.searchAndPaginationService.userSelectChoice.next(this.queryCategory);
+      this.searchAndPaginationService.changePage.next(this.queryPageIndex);
+
 
     })
 
@@ -60,12 +58,13 @@ export class FormComponent implements OnInit, OnDestroy{
       })
     })
 
+
     this.form.get('searchingData.typingWord').valueChanges
     .pipe(
       debounceTime(300)
     )
     .subscribe( val =>{
-      this.router.navigate([''], {queryParams: {q: val}});
+     this.router.navigate([''], {queryParams: {q: val, category:this.queryCategory,  page: this.queryPageIndex }});
       this.searchAndPaginationService.userInput.next(val);
     })
 
@@ -74,18 +73,20 @@ export class FormComponent implements OnInit, OnDestroy{
       map(val=>val.toLowerCase())
     )
     .subscribe( val => {
-      this.router.navigate([''], {queryParams: {category: val}});
+      this.router.navigate([''], {queryParams: {q:this.querySearchCharacters, category: val, page: this.queryPageIndex}});
       this.searchAndPaginationService.userSelectChoice.next(val);
     })
     this.totalNews = this.newsService.totalResults;
+
   }
 
   onPageChange(event: PageEvent){
 
     let index = (event.pageIndex + 1).toString()
     this.searchAndPaginationService.changePage.next(index);
-    this.router.navigate([''], {queryParams: {page: index}});
+   this.router.navigate([''], {queryParams: {q:this.querySearchCharacters,category:this.queryCategory ,page: index}});
   }
+
 
   ngOnDestroy(): void{
     this.routeObservable.unsubscribe();

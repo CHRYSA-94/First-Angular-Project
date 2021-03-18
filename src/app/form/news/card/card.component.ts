@@ -8,11 +8,14 @@ import { Card } from '../card.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+  alternativeImage: string;
   @Input() inputCard: Card;
 
   constructor() { }
 
   ngOnInit(): void {
+
+    this.alternativeImage= '../../../../assets/images/newsImage.jpg';
 
   }
 
